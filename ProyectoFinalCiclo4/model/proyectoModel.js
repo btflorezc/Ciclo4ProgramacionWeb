@@ -16,8 +16,16 @@ const project= new Schema({
         type: Boolean,
         default: true
     },
-    integrantes:[Number]
+    integrantes:[{
+        ref: "usuarios",
+        type: Schema.Types.ObjectId
+    }]
 
     
-})
+},
+    {
+        timestamps : true
+    }
+
+)
 module.exports = model('proyectos', project)

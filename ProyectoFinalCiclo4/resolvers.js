@@ -1,4 +1,9 @@
-const ProjectModel = require('./model/proyectoModel')
+const {addUserToProject,
+    getProject,
+    proyectos,
+    deleteProject,
+    createProject} = require('./service/proyecto.service');
+const Project = require('./model/proyectoModel')
 const User = require('./model/usuarioModel')
 var aes256 = require('aes256');
 
@@ -26,11 +31,11 @@ const resolvers = {
         usuario: (parent, args, context, info) => {
             return listUsuarios.find(user => user.identificacion === args.identificacion)
         },
-        proyectos: async ()=> await ProjectModel.find({}),
-        getProject: async (parent, args, context, info)=> await ProjectModel.findOne({nombre: args.nombre})
+        proyectos: async ()=> proyectos(),
+        getProject: async (parent, args, context, info)=> getProject(args.nombre)
     },
     Mutation:{
-        createUser: async(parent, args, context, info) => {
+        createUser: (parent, args, context, info) => {
             const {clave} = args.user;
             const nuevoUsuario = new User(args.user);
             const encryptedPlainText = aes256.encrypt(key, clave);
@@ -53,33 +58,16 @@ const resolvers = {
                 .catch(err => "Falló la eliminacións");
         },
 
-        deleteProject: (parent, args, context, info) => {
-            return Project.deleteOne({nombre:args.nombreProyecto}, {activo: false})
-                .then(u => "Proyecto Eliminado")
-                .catch(err => "Falló la eliminacións");
+        deleteProject: (parent, args, context, info) => deleteProject(args.nombreProyecto),
+
+        createProject: (parent, args, context, info) => {
+            
+                createProject(args.project)
+            
         },
 
-        insertUserToProject: async (parent, args, context, info) => {
-            const user = await User.findOne({identificacion: args.identificacion})
-            if(user && user.estado === "Activo"){
-                const project = await ProjectModel.findOne({nombre:args.nombreProyecto})
-                if(project && project.activo){
-                    if(project.integrantes.find(i=> i = user.identificacion)){
-                        return "El usuario ya pertenece al proyecto"
-                    }
-                    else{
-                        await ProjectModel.updateOne({nombre: args.nombreProyecto},{$push:{integrantes:user.identificacion}})
-                        return "Usuario adicionado correctamente"
-                    }
-                    
-                }else{
-                    return "Proyecto no válido para adicionar un integrante, consulte el administrador"
-                }
-                //suscripción proyecto
-            } else{
-                return "Usuario no válido"
-            }
-        }
+        insertUserToProject: (parent, args, context, info) => addUserToProject(args.identificacion, args.nombreProyecto),
+ 
     }
 }
 
