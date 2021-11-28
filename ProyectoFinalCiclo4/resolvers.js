@@ -3,6 +3,7 @@ const {addUserToProject,
     proyectos,
     deleteProject,
     createProject} = require('./service/proyecto.service');
+const {buscarUsuarioPorIdentificacion} = require('./service/usuario.service')
 const Project = require('./model/proyectoModel')
 const User = require('./model/usuarioModel')
 var aes256 = require('aes256');
@@ -28,9 +29,7 @@ const key = 'CLAVEDIFICIL';
 const resolvers = {
     Query: {
         usuarios: () => listUsuarios,
-        usuario: (parent, args, context, info) => {
-            return listUsuarios.find(user => user.identificacion === args.identificacion)
-        },
+        usuario: (parent, args, context, info) => buscarUsuarioPorIdentificacion(args.identificacion),
         proyectos: async ()=> proyectos(),
         getProject: async (parent, args, context, info)=> getProject(args.nombre)
     },
