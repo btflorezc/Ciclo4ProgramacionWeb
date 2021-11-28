@@ -21,6 +21,10 @@ const usuario= new Schema({
     clave: {
         type:String,
         required: true
+    },
+    email:{
+        type: String,
+        unique: true
     }
 })
 module.exports = model('usuarios', usuario, "usuarios")

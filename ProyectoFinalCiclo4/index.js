@@ -4,36 +4,7 @@ const express = require('express')
 const {ApolloServer } = require('apollo-server-express')
 const typeDefs = require('./typeDef')
 const resolvers = require('./resolvers')
-
-
-/* const projectAguas = new ProjectModel({
-    nombre: 'Proyecto de aguas residuales',
-    lider: 'Andres Delgado',
-    facultad: 'Ingenieria X'
-})
-
-/* projectAguas.save((err, document)=>{
-    if(err){
-        console.log(err);
-        return;
-    }
-}) */
-
-/* const consultaProyectos= async ()=>{
-    return await ProjectModel.find({})
-    
-}
-
-api.get('/proyectos', (request, response)=>{
-    consultaProyectos().then(function(resultado){
-        response.json({projects: resultado})
-    })
-}) */
-
-
-
-
-
+const authRoute = require('./routes/auth.routes')
 
 const iniciarServidor = async () => {
     const api = express();
@@ -44,9 +15,11 @@ const iniciarServidor = async () => {
         });
     await apollo.start()
     apollo.applyMiddleware({ app: api })
-    api.use((request, response) => {
+    /* api.use((request, response) => {
         response.send('Hola')
-    })
+    }) */
+    api.use(express.json())
+    api.use('/api', authRoute)
     api.listen('9090', () => console.log('Inició servidor'))
 
 }
