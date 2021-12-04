@@ -7,9 +7,9 @@ const validarToken = (request, response, next) => {
         return response.status(401).json({ response: "Token inválido" })
     }
     try {
-        const perfil = jwt.verify(token, key)
-        if (perfil) {
-            request.perfil = perfil.role
+        const tipo_usuario = jwt.verify(token, key)
+        if (tipo_usuario) {
+            request.tipo_usuario = tipo_usuario.role
             next();
             return
         }
@@ -20,14 +20,22 @@ const validarToken = (request, response, next) => {
     
 }
 const admin = (request, response, next)=>{
-    if(request.perfil != "Administrador"){
+    if(request.tipo_usuario != "Administrador"){
         return response.status(403).json({ response: "Permisos insuficientes" })
     }
     next();
 }
 
+const isLider = (rol)=>{
+    return rol === "Lider"
+}
+
+const isAdmin = (rol)=>{
+    return rol === "Admin"
+}
+
 const estudiante = (request, response, next)=>{
-    if(request.perfil != "Estudiante"){
+    if(request.tipo_usuario != "Estudiante"){
         return response.status(403).json({ response: "Permisos insuficientes" })
     }
     next();
@@ -36,5 +44,7 @@ const estudiante = (request, response, next)=>{
 module.exports = {
     validarToken,
     admin,
-    estudiante
+    estudiante,
+    isLider,
+    isAdmin
 }

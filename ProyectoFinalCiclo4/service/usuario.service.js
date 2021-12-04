@@ -1,6 +1,9 @@
 
-const buscarUsuarioPorIdentificacion = (identi) => listUsuarios.find(user => user.identificacion === identi)
+const Usuario = require('../model/usuarioModel');
+
+const usuario= async (nombre)=> await Usuario.findOne({nombre});
+
 
 module.exports ={
-    buscarUsuarioPorIdentificacion
+    usuario
 }

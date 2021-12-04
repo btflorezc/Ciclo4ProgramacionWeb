@@ -1,5 +1,6 @@
 const Project = require('../model/proyectoModel')
 const User = require('../model/usuarioModel')
+const {v4:uuidv4} = require('uuid');
 
 const addUserToProject = async (identificacion, nombreProyecto) => {
     const user = await User.findOne({identificacion})
@@ -25,6 +26,7 @@ const addUserToProject = async (identificacion, nombreProyecto) => {
 
 const createProject= (project) => {
     const nuevoProyecto = new Project(project);
+    nuevoProyecto.identificador = uuidv4()
     return nuevoProyecto.save()
         .then(u => "Proyecto Creado")
         .catch(err => console.log(err));
@@ -39,11 +41,13 @@ const deleteProject= (nombreProyecto) => {
 
 const proyectos = async ()=> await Project.find({}).populate("integrantes");
 const getProject= async (nombre)=> await Project.findOne({nombre});
+const liderProject= async ()=> await Project.find({lider});
 
 module.exports ={
     addUserToProject,
     getProject,
     proyectos,
     deleteProject,
-    createProject
+    createProject,
+    liderProject
 }

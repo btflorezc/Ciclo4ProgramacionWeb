@@ -1,6 +1,6 @@
 const {Schema, model} = require('mongoose')
 
-const usuario= new Schema({
+const usuario = new Schema ({
     nombre: {
         type: String,
         required: true
@@ -10,21 +10,21 @@ const usuario= new Schema({
         unique: true,
         required: true
     },
-    perfil: {
+    tipo_usuario: {
         type: String,
         required: true
     },
     estado: {
-        type:String,
-        default: "Inactivo"
+        type: String,
+        default: "Pendiente"
     },
     clave: {
-        type:String,
+        type: String,
         required: true
     },
-    email:{
+    correo: {
         type: String,
-        unique: true
+        required: true
     }
 })
-module.exports = model('usuarios', usuario, "usuarios")
+module.exports = model('usuarios', usuario)
