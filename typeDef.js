@@ -48,6 +48,10 @@ const typeDefs = gql`
         proyectos:[Proyecto]
         getProject(nombre:String):Proyecto
         findLiderProjects (lider:String):[Proyecto]
+        usuariosEstudiantes : [Usuario]
+        liderProject(lider:String): [Proyecto]
+
+
     }
     input UserInput{
         nombre_completo: String

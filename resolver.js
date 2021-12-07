@@ -50,6 +50,9 @@ const resolvers = {
         findLiderProjects: async (parent, args, context, info) => {
            return await Project.find({lider:args.lider})
         },
+        
+        usuariosEstudiantes: async () => await User.find({tipo_usuario:'Estudiante'}),
+        liderProject: async (parent, args, context, info)=> Project.find({lider:args.lider})
     },
     Mutation: {
         createUser: (parent, args, context, info) => {
@@ -62,9 +65,9 @@ const resolvers = {
                 .catch(err => console.log(err));
         },
         activeUser: (parent, args, context, info) => {
-            return User.updateOne({ identificacion: args.identificacion }, { estado: "Activo" })
-                .then(u => "Usuario activo")
-                .catch(err => "Fallo la activacion");
+            return User.updateOne({ identificacion: args.identificacion }, { estado: "Autorizado" })
+                .then(u => "Usuario autorizado")
+                .catch(err => "Fallo la autorización");
         },
         deleteUser: (parent, args, context, info) => {
             if (isLider(context.rol)) {
@@ -90,10 +93,11 @@ const resolvers = {
                 .catch(err => console.log(err));
         },
         createProject: (parent, args, context, info) => {
-            if (isLider(context.rol)) {
-                createProject(args.project)
-            }
+            // if(isLider(context.rol)){
+            return createProject(args.project)
+            //}
         },
+
         autenticar: async(parent, args, context, info) => {
             try {
                 const usuario = await User.findOne({ correo: args.usuario })
