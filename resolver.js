@@ -17,23 +17,23 @@ const listUsuarios = [
         identificacion: 123456789,
         estado: 'activo',
         clave: 'claveFacil',
-        email: 'ramon@gmail.com',
-        perfil: 'estudiante'
+        correo: 'ramon@gmail.com',
+        tipo_usuario: 'estudiante'
     },
     {
         nombre: 'Ernesto',
         identificacion: 98765,
         estado: 'inactivo',
         clave: 'ClaveDificil',
-        email: 'ernesto@gmail.com',
-        perfil: 'estudiante'
+        correo: 'ernesto@gmail.com',
+        tipo_usuario: 'estudiante'
     },
     {
         nombre: 'Daniel Saavedra',
         identificacion: 123456789,
         estado: 'activo',
-        email: 'daniel@gmail.com',
-        perfil: 'lider'
+        correo: 'daniel@gmail.com',
+        tipo_usuario: 'lider'
     },
 
 ]
@@ -96,7 +96,7 @@ const resolvers = {
         },
         autenticar: async(parent, args, context, info) => {
             try {
-                const usuario = await User.findOne({ email: args.usuario })
+                const usuario = await User.findOne({ correo: args.usuario })
                 if (!usuario) {
                     return  "Verique usuario y contrasena" 
                 }
@@ -106,7 +106,7 @@ const resolvers = {
                     return "Verique usuario y contrasena"
                 }
                 const token = jwt.sign({
-                    rolesito: usuario.perfil
+                    rolesito: usuario.tipo_usuario
                 }, key, { expiresIn: 60 * 60 * 2 })
         
                 return token 
@@ -131,7 +131,7 @@ const resolvers = {
         updateEstadoIncripcion: async(parent, args, context, info) => {
             try {
                 const project = await Project.findOne({ _id : args._id })
-             await  Project.updateOne({"nombre": project.nombre},{$set: {"inscripciones.$[ins].estado": args.nuevo_estado}},{arrayFilters:[{"ins.id_ins": {$eq: (args.id_ins)}},]})
+             await  Project.updateOne({"nombre": project.nombre},{$set: {"inscripciones.$[ins].estado": args.nuevo_estado}},{arrayFilters:[{"ins.id_inscripcion": {$eq: (args.id_inscripcion)}},]})
             //     if (project.estado_proyecto == "Activo"){
             //     await Project.updateOne({ _id : project.id }, {  $set: {objetivos_generales: args.project.objetivos_generales,objetivos_especificos: args.project.objetivos_especificos,  presupuesto: args.project.presupuesto,nombre:args.project.nombre} })
             //     return "proyecto Actualizado "

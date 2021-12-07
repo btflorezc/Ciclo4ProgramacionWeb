@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose')
 
 
 const project = new Schema({
-    identificador: {
+    id_proyecto: {
         type: String,
         required: true,
         unique: true
@@ -15,10 +15,10 @@ const project = new Schema({
     objetivos_generales: String,
     objetivos_especificos: [String],
     presupuesto: Number,
-    facultad:String,
+    
     inscripciones:[
          { 
-         id_ins : String,
+         id_inscripcion : String,
          id_estudiante:String,
          estado:String,
          fecha_ingreso:Date,

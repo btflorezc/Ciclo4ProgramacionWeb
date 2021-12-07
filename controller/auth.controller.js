@@ -13,7 +13,7 @@ const key = 'CLAVEDIFICIL';
     */
 const singIn = async (request, response) => {
     try {
-        const usuario = await Usuario.findOne({ email: request.body?.email })
+        const usuario = await Usuario.findOne({ correo: request.body?.correo })
         if (!usuario) {
             return response.status(401).json({ response: "Verique usuario y contrasena" })
         }
@@ -23,7 +23,7 @@ const singIn = async (request, response) => {
             return response.status(401).json({ response: "Verique usuario y contrasena" })
         }
         const token = jwt.sign({
-            rolesito: usuario.perfil
+            rolesito: usuario.tipo_usuario
         }, key, { expiresIn: 60 * 60 * 2 })
 
         response.status(200).json({ jwt: token })

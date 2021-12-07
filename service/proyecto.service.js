@@ -25,7 +25,7 @@ const addUserProject = async (identificacion, nombreProyecto) => {
 
 const createProject = (project) => {
     const nuevoProyecto = new Project(project);
-    nuevoProyecto.identificador = uuidv4()
+    nuevoProyecto.id_proyecto = uuidv4()
     return nuevoProyecto.save()
         .then(u => "Proyecto creado")
         .catch(err => console.log(err));

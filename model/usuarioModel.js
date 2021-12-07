@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose')
 
 const usuario = new Schema({
-    nombre: {
+    nombre_completo: {
         type: String,
         required: true
     },
@@ -10,7 +10,7 @@ const usuario = new Schema({
         unique: true,
         required: true
     },
-    perfil: {
+    tipo_usuario: {
         type: String,
         required: true
     },
@@ -18,7 +18,7 @@ const usuario = new Schema({
         type: String,
         default: "Inactivo"
     },
-    email:{
+    correo:{
         type: String,
         unique:true
     },

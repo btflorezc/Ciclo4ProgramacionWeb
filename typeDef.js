@@ -5,21 +5,20 @@ const typeDefs = gql`
     scalar Date
 
     type Usuario{
-        nombre: String
+        nombre_completo: String
         identificacion: Int
         estado: String
-        email: String
-        perfil: String
+        correo: String
+        tipo_usuario: String
     }
     type Proyecto{
-        identificador: String
+        id_proyecto: String
         objetivos_generales: String
         objetivos_especificos: [String]
         presupuesto: Int
         fecha_inicio: Date
         fecha_terminacion: Date
         lider: String
-        facultad:String
         fase:String
         nombre:String
         estado_proyecto:String
@@ -35,7 +34,7 @@ const typeDefs = gql`
     }
 
     type inscripciones{
-        id_ins : String
+        id_inscripcion : String
         id_estudiante:String
         estado:String
         fecha_ingreso:Date
@@ -51,10 +50,10 @@ const typeDefs = gql`
         findLiderProjects (lider:String):[Proyecto]
     }
     input UserInput{
-        nombre: String
+        nombre_completo: String
         identificacion:Int
         clave: String
-        perfil: String
+        tipo_usuario: String
     }
     input ProjectInput{
         objetivos_generales: String
@@ -79,7 +78,7 @@ const typeDefs = gql`
         insertUserToProject(identificacion:Int,nombreProyecto:String):String
         autenticar(usuario:String, clave:String):String
         updateProject(project: ProjectUpdateInput ):String
-        updateEstadoIncripcion(_id:String, id_ins:String, nuevo_estado:String):String
+        updateEstadoIncripcion(_id:String, id_inscripcion:String, nuevo_estado:String):String
         updateObservaciones(_id:String, id_avance:String, observaciones:String ):String
         
     }
