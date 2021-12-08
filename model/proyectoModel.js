@@ -40,7 +40,7 @@ const project = new Schema({
     ],
     estado_proyecto: {
         type: String,
-        default: "inactivo"
+        default: "Inactivo"
     },
     fase: String,
     lider: String,

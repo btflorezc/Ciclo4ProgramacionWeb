@@ -73,7 +73,7 @@ const typeDefs = gql`
         createUser(user:UserInput):String
         createProject(project:ProjectInput):String
         activeUser(identificacion:Int):String
-        deleteUser(ident:Int):String
+        deleteUser(identificacion:Int):String
         deleteProject(nombreProyecto:String):String
         insertUserToProject(identificacion:Int,nombreProyecto:String):String
         autenticar(usuario:String, clave:String):String

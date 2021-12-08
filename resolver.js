@@ -128,7 +128,7 @@ const resolvers = {
                 console.log(error)
             }
         },
-        updateEstadoIncripcion: async(parent, args, context, info) => {
+        updateEstadoInscripcion: async(parent, args, context, info) => {
             try {
                 const project = await Project.findOne({ _id : args._id })
              await  Project.updateOne({"nombre": project.nombre},{$set: {"inscripciones.$[ins].estado": args.nuevo_estado}},{arrayFilters:[{"ins.id_inscripcion": {$eq: (args.id_inscripcion)}},]})
@@ -159,15 +159,24 @@ const resolvers = {
             }
         },
         activeProject: (parent, args, context, info) => {
-            return Project.updateOne({id_proyecto:args.Id_proyecto}, {estado_proyecto:"Activo"})
+            return Project.updateOne({id_proyecto:args.id_proyecto}, {estado_proyecto:"Activo"})
                 .then(u => "Se realizó la activación del proyecto")
                 .catch(err => "Fallo la activación del proyecto");
         },
-        updateFaseProjec: (parent, args, context, info) => {
-            return proyecto.updateOne({id_proyecto:args.id_proyecto}, {fase:"Terminado",estado_proyecto:"Inactivo"})
-                .then(u => "Se realizo el cambio de fase del proyecto, de “En desarrollo” a “Terminado”.")
-                .catch(err => "Fallo el cambio de fase del proyecto, de “En desarrollo” a “Terminado”.")
-          }  
+        updateFaseProject: async(parent, args, context, info) => {
+            try {
+                const project = await Project.findOne({id_proyecto:args.id_proyecto})
+                if (project.fase == "En desarrollo"){
+                await Project.updateOne({id_proyecto:args.id_proyecto}, {fase:"Terminado",estado_proyecto:"Inactivo"})
+                return "Se realizo el cambio de fase del proyecto, de “En desarrollo” a “Terminado”."
+            }
+            else {
+                return "Fallo el cambio de fase del proyecto, de “En desarrollo” a “Terminado”, revisar la fase del proyecto." 
+            }
+            } catch (error) {
+                console.log(error)
+            }
+        }  
     }
 }
 module.exports = resolvers
