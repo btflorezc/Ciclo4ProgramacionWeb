@@ -78,9 +78,10 @@ const typeDefs = gql`
         insertUserToProject(identificacion:Int,nombreProyecto:String):String
         autenticar(usuario:String, clave:String):String
         updateProject(project: ProjectUpdateInput ):String
-        updateEstadoIncripcion(_id:String, id_inscripcion:String, nuevo_estado:String):String
+        updateEstadoInscripcion(_id:String, id_inscripcion:String, nuevo_estado:String):String
         updateObservaciones(_id:String, id_avance:String, observaciones:String ):String
-        
+        activeProject(id_proyecto:String):String 
+        updateFaseProject(id_proyecto:String):String       
     }
 `
 module.exports = typeDefs

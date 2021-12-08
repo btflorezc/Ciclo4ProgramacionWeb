@@ -157,7 +157,17 @@ const resolvers = {
             } catch (error) {
                 console.log(error)
             }
-        }
+        },
+        activeProject: (parent, args, context, info) => {
+            return Project.updateOne({id_proyecto:args.Id_proyecto}, {estado_proyecto:"Activo"})
+                .then(u => "Se realizó la activación del proyecto")
+                .catch(err => "Fallo la activación del proyecto");
+        },
+        updateFaseProjec: (parent, args, context, info) => {
+            return proyecto.updateOne({id_proyecto:args.id_proyecto}, {fase:"Terminado",estado_proyecto:"Inactivo"})
+                .then(u => "Se realizo el cambio de fase del proyecto, de “En desarrollo” a “Terminado”.")
+                .catch(err => "Fallo el cambio de fase del proyecto, de “En desarrollo” a “Terminado”.")
+          }  
     }
 }
 module.exports = resolvers
