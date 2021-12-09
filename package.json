@@ -1,0 +1,30 @@
+{
+  "name": "udea",
+  "version": "0.0.1",
+  "description": "Inicio proyecto ciclo 4a",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dani-saavedra/backoffice-investigacion-api.git"
+  },
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js"
+  },
+  "author": "Daniel Saavedra",
+  "license": "MIT",
+  "homepage": "https://github.com/dani-saavedra/backoffice-investigacion-api#readme",
+  "dependencies": {
+    "aes256": "^1.1.0",
+    "apollo-server-express": "^3.5.0",
+    "D": "^1.0.0",
+    "express": "^4.17.1",
+    "graphql": "^15.7.2",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.0.12",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
