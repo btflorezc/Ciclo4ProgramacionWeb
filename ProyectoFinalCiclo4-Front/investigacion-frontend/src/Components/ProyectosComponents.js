@@ -11,7 +11,7 @@ const Proyectos = () => {
       proyectos{
         lider
         nombre
-        objetivosGenerales
+        objetivos_generales
         presupuesto
 
       }
@@ -24,17 +24,17 @@ const Proyectos = () => {
   }
   const { loading, error, data } = useQuery(PROYECTOS,{context:{
     headers:{
-      Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzg0OTI3NTQsImV4cCI6MTYzODQ5OTk1NH0.kGYBy-H23TDq75GMGyLPi6_Za2A_xqgiXuI0_1yaDC4" 
+      /* Authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2Mzg0OTI3NTQsImV4cCI6MTYzODQ5OTk1NH0.kGYBy-H23TDq75GMGyLPi6_Za2A_xqgiXuI0_1yaDC4" */ 
     }
   }})
   if (loading) return "<h1>Cargando</h1>"
   if (error) return "<h1>problemas con el server de graphql</h1>"
   
-  const datosTabla = data.proyectos.map(({ lider, nombre, objetivosGenerales, presupuesto }) => (
+  const datosTabla = data.proyectos.map(({ lider, nombre, objetivos_generales, presupuesto }) => (
     <tr>
       <td>{lider}</td>
       <td>{nombre}</td>
-      <td>{objetivosGenerales}</td>
+      <td>{objetivos_generales}</td>
       <td>{presupuesto}</td>
     </tr>
   ));
