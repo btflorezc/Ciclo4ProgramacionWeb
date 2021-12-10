@@ -13,25 +13,26 @@ const jwt = require('jsonwebtoken')
 
 const listUsuarios = [
     {
-        nombre: 'Ramon Castano',
+        nombre_completo: 'Ramon Castano',
         identificacion: 123456789,
-        estado: 'activo',
+        estado: 'autorizado',
         clave: 'claveFacil',
         correo: 'ramon@gmail.com',
         tipo_usuario: 'estudiante'
     },
     {
-        nombre: 'Ernesto',
+        nombre_completo: 'Ernesto',
         identificacion: 98765,
-        estado: 'inactivo',
+        estado: 'no autorizado',
         clave: 'ClaveDificil',
         correo: 'ernesto@gmail.com',
         tipo_usuario: 'estudiante'
     },
     {
-        nombre: 'Daniel Saavedra',
+        nombre_completo: 'Daniel Saavedra',
         identificacion: 123456789,
-        estado: 'activo',
+        estado: 'pendiente',
+        clave: 'ClaveFacil',
         correo: 'daniel@gmail.com',
         tipo_usuario: 'lider'
     },
@@ -132,16 +133,16 @@ const resolvers = {
                 console.log(error)
             }
         },
-        updateEstadoIncripcion: async(parent, args, context, info) => {
+        updateEstadoInscripcion: async(parent, args, context, info) => {
             try {
                 const project = await Project.findOne({ _id : args._id })
-             await  Project.updateOne({"nombre": project.nombre},{$set: {"inscripciones.$[ins].estado": args.nuevo_estado}},{arrayFilters:[{"ins.id_inscripcion": {$eq: (args.id_inscripcion)}},]})
+             await  Project.updateOne({"nombre_completo": project.nombre},{$set: {"inscripciones.$[ins].estado": args.nuevo_estado}},{arrayFilters:[{"ins.id_inscripcion": {$eq: (args.id_inscripcion)}},]})
             //     if (project.estado_proyecto == "Activo"){
             //     await Project.updateOne({ _id : project.id }, {  $set: {objetivos_generales: args.project.objetivos_generales,objetivos_especificos: args.project.objetivos_especificos,  presupuesto: args.project.presupuesto,nombre:args.project.nombre} })
             //     return "proyecto Actualizado "
             // }
             // else {
-                return "inscricion actualizada " 
+                return "inscripcion actualizada " 
             // }
             } catch (error) {
                 console.log(error)
@@ -150,7 +151,7 @@ const resolvers = {
         updateObservaciones: async(parent, args, context, info) => {
             try {
                 const project = await Project.findOne({ _id : args._id })
-             await  Project.updateOne({"nombre": project.nombre},{$set: {"avances.$[avc].observaciones_lider": args.observaciones}},{arrayFilters:[{"avc.id_avance": {$eq: (args.id_avance)}},]})
+             await  Project.updateOne({"nombre_completo": project.nombre},{$set: {"avances.$[avc].observaciones_lider": args.observaciones}},{arrayFilters:[{"avc.id_avance": {$eq: (args.id_avance)}},]})
             //     if (project.estado_proyecto == "Activo"){
             //     await Project.updateOne({ _id : project.id }, {  $set: {objetivos_generales: args.project.objetivos_generales,objetivos_especificos: args.project.objetivos_especificos,  presupuesto: args.project.presupuesto,nombre:args.project.nombre} })
             //     return "proyecto Actualizado "
@@ -161,7 +162,28 @@ const resolvers = {
             } catch (error) {
                 console.log(error)
             }
+        },
+        updateUser: async (parent, args, context, info) => {
+            try{
+                await User.updateOne(
+                    { _id: args.user._id },
+                    {
+                        $set:{
+                        nombre_completo: args.user.nombre_completo,
+                        identificacion: args.user.identificacion, 
+                        clave: args.user.clave, 
+                        correo: args.user.correo,
+                        },            
+                    }
+                );      
+                return "usuario actualizado";
+            
+            } catch (error) {
+                console.log(error);
+            }        
+            
         }
-    }
-}
+    
+    },
+}   
 module.exports = resolvers

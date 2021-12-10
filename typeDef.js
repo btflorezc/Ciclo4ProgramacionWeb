@@ -8,9 +8,11 @@ const typeDefs = gql`
         nombre_completo: String
         identificacion: Int
         estado: String
+        clave: String
         correo: String
         tipo_usuario: String
     }
+
     type Proyecto{
         id_proyecto: String
         objetivos_generales: String
@@ -39,7 +41,6 @@ const typeDefs = gql`
         estado:String
         fecha_ingreso:Date
         fecha_egreso:Date
-
     }
 
     type Query{
@@ -50,15 +51,15 @@ const typeDefs = gql`
         findLiderProjects (lider:String):[Proyecto]
         usuariosEstudiantes : [Usuario]
         liderProject(lider:String): [Proyecto]
-
-
     }
+
     input UserInput{
         nombre_completo: String
         identificacion:Int
         clave: String
         tipo_usuario: String
     }
+
     input ProjectInput{
         objetivos_generales: String
         presupuesto: Int
@@ -66,13 +67,23 @@ const typeDefs = gql`
         lider: String
         nombre:String
     }
+
     input ProjectUpdateInput{
         objetivos_generales: String
         objetivos_especificos: [String]
         presupuesto: Int
-        nombre:String
-        _id:String
+        nombre: String
+        _id: String
     }
+
+    input userUpdateInput{
+        nombre_completo: String
+        identificacion: Int
+        correo: String
+        clave: String
+        _id: String
+    }
+
     type Mutation{
         createUser(user:UserInput):String
         createProject(project:ProjectInput):String
@@ -82,9 +93,9 @@ const typeDefs = gql`
         insertUserToProject(identificacion:Int,nombreProyecto:String):String
         autenticar(usuario:String, clave:String):String
         updateProject(project: ProjectUpdateInput ):String
-        updateEstadoIncripcion(_id:String, id_inscripcion:String, nuevo_estado:String):String
+        updateEstadoInscripcion(_id:String, id_inscripcion:String, nuevo_estado:String):String
         updateObservaciones(_id:String, id_avance:String, observaciones:String ):String
-        
+        updateUser(user: userUpdateInput): String
     }
 `
 module.exports = typeDefs
