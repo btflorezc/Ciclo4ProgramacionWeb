@@ -30,6 +30,6 @@ app.get('/', (req, res) =>{
 app.use(require('../routes/users.routes'));
 
 // Static files
-//app.use(express.static(path.join(__dirname,'../../public')));
+app.use(express.static('/project-management/public'));
 
 module.exports = app;
