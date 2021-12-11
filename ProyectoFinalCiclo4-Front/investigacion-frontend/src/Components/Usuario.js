@@ -1,10 +1,10 @@
-const Usuario = ({user}) =>{
+const Usuario = ({usua}) =>{
     return <tr>
-        <td>{user.nombre_completo}</td>
-        <td>{user.identificación}</td>
-        <td>{user.estado}</td>
-        <td>{user.correo}</td>
-        <td>{user.tipo_usuario}</td>
+        <td>{usua.nombre_completo}</td>
+        <td>{usua.identificacion}</td>
+        <td>{usua.estado}</td>
+        <td>{usua.correo}</td>
+        <td>{usua.tipo_usuario}</td>
     </tr>
 }
 

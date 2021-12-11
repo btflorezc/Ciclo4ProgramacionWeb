@@ -39,7 +39,7 @@ const ListaUsuarios = () => {
                     <th>Tipo Usuario</th>
                 </tr>
                 {data.usuarios.map((usuario) => {
-                    return <Usuario user={usuario} />
+                    return <Usuario usua={usuario} />
                 })}
             </thead>
         </table>
