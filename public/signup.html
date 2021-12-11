@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+
+<body>
+    <form action="/register" method="POST">
+        <h2>Registro</h2>
+        <div class="section">
+            <div class="title">Nombre Completo</div>
+            <div class="field"><input type="text" id="nombre_completo" name="nombre_completo"></div>
+        </div>
+        <div class="section">
+            <div class="title">Identificación</div>
+            <div class="field"><input type="number" id="identificacion" name="identificacion"></div>
+        </div>
+        <div class="section">
+            <div class="title">Correo</div>
+            <div class="field"><input type="email" id="correo" name="correo"></div>
+        </div>
+        <div class="section">
+            <div class="title">Clave</div>
+            <div class="field"><input type="password" id="clave" name="clave"></div>
+        </div>
+        <div class="section">
+            <div class="title">Rol</div>
+        </div>
+        <select class="field" type="text" id="tipo_usuario" name="tipo_usuario">
+            <option>Estudiante</option>
+            <option>Líder</option>
+            <option>Administrador</option>
+        </select>
+        <div class="section">
+            <div class="button"><input type="submit" value="Registrar usuario"></div>
+            <!--<div class="button"><a href="index.html">Registrarse</a></div>-->
+        </div>
+    </form>
+</body>
+
+</html>
